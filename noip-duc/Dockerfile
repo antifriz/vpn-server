@@ -21,7 +21,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Ideally should be done through https://docs.docker.com/reference/dockerfile/#run---mounttypesecret
-ARG USER
-ARG PASS
-# Run noip-duc every 60 seconds
-RUN watch -n 60 noip-duc -g all.ddnskey.com -u $USER -p $PASS
+ARG NOIP_USER
+ARG NOIP_PASS
+ARG NOIP_INTERVAL
+RUN watch -n $NOIP_INTERVAL noip-duc -g all.ddnskey.com -u $NOIP_USER -p $NOIP_PASS
