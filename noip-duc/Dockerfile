@@ -17,7 +17,7 @@ RUN tar xf noip-duc_3.0.0.tar.gz
 
 # Install it
 RUN apt-get update \
-  && apt-get install -y /code/noip-duc_3.0.0/binaries/noip-duc_3.0.0_armhf.deb \
+  && apt-get install -y /code/noip-duc_3.0.0/binaries/noip-duc_3.0.0_amd64.deb \
   && rm -rf /var/lib/apt/lists/*
 
 # Ideally should be done through https://docs.docker.com/reference/dockerfile/#run---mounttypesecret
