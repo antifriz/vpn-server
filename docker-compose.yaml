@@ -1,0 +1,36 @@
+# Borrowed from https://github.com/linuxserver/docker-wireguard?tab=readme-ov-file#docker-compose-recommended-click-here-for-more-info
+---
+services:
+  noip-duc:
+    # Used for DyDNS refreshing
+    build:
+      context: noip-duc
+    env_file:
+    - path: ./default.env
+      required: true
+    - path: ./override.env
+      required: false
+  wireguard:
+    # VPN
+    image: lscr.io/linuxserver/wireguard:latest
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      # We'll enable this if needed. https://github.com/linuxserver/docker-wireguard?tab=readme-ov-file#note-on-iptables
+      # - SYS_MODULE
+    environment:
+      # Naah, no PUID, PGID, we are singleton on the server. https://github.com/linuxserver/docker-wireguard?tab=readme-ov-file#user--group-identifiers
+      # - PUID=1000
+      # - PGID=1000
+      - PEERDNS=8.8.8.8
+      - PERSISTENTKEEPALIVE_PEERS=all
+      - LOG_CONFS=true
+    volumes:
+      - /opt/wireguard/config:/config
+      # We'll enable this if needed. https://github.com/linuxserver/docker-wireguard?tab=readme-ov-file#note-on-iptables
+      # - /lib/modules:/lib/modules # https://github.com/linuxserver/docker-wireguard?tab=readme-ov-file#note-on-iptables
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
