@@ -1,15 +1,15 @@
 # Borrowed from https://github.com/linuxserver/docker-wireguard?tab=readme-ov-file#docker-compose-recommended-click-here-for-more-info
 ---
 services:
-  noip-duc:
-    # Used for DyDNS refreshing
-    build:
-      context: noip-duc
-    env_file:
-    - path: ./default.env
-      required: true
-    - path: ./override.env
-      required: false
+  # noip-duc:
+  #   # Used for DyDNS refreshing
+  #   build:
+  #     context: noip-duc
+  #   env_file:
+  #   - path: ./default.env
+  #     required: true
+  #   - path: ./override.env
+  #     required: false
   wireguard:
     # VPN
     image: lscr.io/linuxserver/wireguard:latest
